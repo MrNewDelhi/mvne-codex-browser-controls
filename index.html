@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Codex In-App Browser Controls</title>
-    <meta name="description" content="MVNE guide for Codex in-app browser controls, approval settings, domain rules, browsing data, screenshots, Chrome boundaries, and team workflows.">
+    <meta name="description" content="Corporate guide for Codex in-app browser controls, approval settings, domain rules, browsing data, screenshots, competing tool comparison, and team workflows.">
     <meta property="og:title" content="Codex In-App Browser Controls">
     <meta property="og:description" content="A complete static guide for safe Codex browser governance in controlled environments.">
     <meta property="og:image" content="assets/images/chrome-controls.png">
@@ -22,6 +22,8 @@
         </a>
         <div class="nav-links">
           <a href="#defaults">Defaults</a>
+          <a href="#corporate">Corporate</a>
+          <a href="#comparison">Tools</a>
           <a href="#controls">Controls</a>
           <a href="#policy">Policy</a>
           <a href="#use-cases">Use Cases</a>
@@ -38,7 +40,8 @@
           <p class="lead">
             A full static writeup for governing Codex browser use: approvals,
             allow/block domain lists, browsing data, annotation screenshots,
-            Chrome extension boundaries, team workflows, troubleshooting, and QA use cases.
+            Chrome extension boundaries, corporate risk controls, team workflows,
+            tool comparison, troubleshooting, and QA use cases.
           </p>
           <div class="actions">
             <a class="button primary" href="#defaults">Start with defaults</a>
@@ -51,6 +54,48 @@
         </div>
         <div class="hero-visual">
           <img src="assets/images/chrome-controls.png" alt="Google Chrome controls for Codex overview">
+        </div>
+      </section>
+
+      <section id="corporate" class="section corporate">
+        <div class="section-head">
+          <p class="eyebrow">Why it matters for corporate teams</p>
+          <h2>Browser agents turn web access into an enterprise control plane.</h2>
+          <p>
+            Once an AI coding tool can open pages, click buttons, read rendered state, and
+            capture screenshots, it is no longer just a code assistant. It becomes a delegated
+            browser operator that can touch internal apps, staging systems, customer data, and
+            signed-in sessions.
+          </p>
+        </div>
+        <div class="corporate-grid">
+          <article>
+            <strong>01</strong>
+            <h3>Data exposure</h3>
+            <p>Screenshots, cookies, rendered tables, dashboards, and forms can carry confidential customer, employee, or business data.</p>
+          </article>
+          <article>
+            <strong>02</strong>
+            <h3>Action risk</h3>
+            <p>Browser agents can click, submit, download, upload, or navigate unless the workflow is constrained by approval and domain rules.</p>
+          </article>
+          <article>
+            <strong>03</strong>
+            <h3>Auditability</h3>
+            <p>Teams need a clear policy for who allowed access, which destinations were trusted, and what browser state was retained.</p>
+          </article>
+          <article>
+            <strong>04</strong>
+            <h3>Separation of duties</h3>
+            <p>In-app browser, web search, command-line internet, MCP tools, and Chrome extension workflows must not be treated as one permission.</p>
+          </article>
+        </div>
+        <div class="risk-strip" aria-label="Corporate control pattern">
+          <span>Least privilege</span>
+          <span>Explicit destinations</span>
+          <span>Human approval</span>
+          <span>Screenshot minimization</span>
+          <span>Session cleanup</span>
         </div>
       </section>
 
@@ -133,6 +178,60 @@
           <article><h3>MCP tools and connectors</h3><p>Governed by their own permissions and integration policies.</p></article>
           <article><h3>Filesystem sandboxing</h3><p>Workspace file access is a separate local runtime control.</p></article>
         </div>
+      </section>
+
+      <section id="comparison" class="section comparison">
+        <div class="section-head">
+          <p class="eyebrow">Market comparison</p>
+          <h2>Browser capability is common. Browser governance is the differentiator.</h2>
+          <p>
+            Public documentation shows that modern AI coding assistants increasingly include
+            browser or browser-like workflows. The important corporate question is not only
+            whether a tool can browse, but whether admins can constrain destinations, approval,
+            screenshots, browser state, and signed-in contexts.
+          </p>
+        </div>
+        <div class="comparison-table" role="region" aria-label="Browser control comparison" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Browser capability found</th>
+                <th>Controls found in public docs</th>
+                <th>Corporate readout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Codex</strong></td>
+                <td>Built-in in-app browser and separate Chrome extension path.</td>
+                <td>Browser Use toggle, approval mode, allowed domains, blocked domains, browsing data cleanup, and annotation screenshot behavior.</td>
+                <td>Strong fit for controlled local/staging UI verification because browser governance is visible and domain-oriented.</td>
+              </tr>
+              <tr>
+                <td><strong>Cursor</strong></td>
+                <td>Public docs and changelog describe agent/browser workflows, web validation, and enterprise agent security controls.</td>
+                <td>Public docs emphasize approval for sensitive actions, model/tool restrictions, MCP controls, privacy mode, and enterprise policies. I did not find a public Codex-style browser allow/block list for the in-editor browser.</td>
+                <td>Good agent-security framing, but browser destination governance should be verified in the admin console before broad corporate rollout.</td>
+              </tr>
+              <tr>
+                <td><strong>Claude</strong></td>
+                <td>Claude can use browser/computer-use style workflows, and Anthropic documents Chrome extension permissions and managed settings.</td>
+                <td>Public Anthropic material emphasizes permission prompts, browser extension permissions, managed settings, and enterprise controls. I did not find a public per-domain in-app browser allow/block UI comparable to Codex's page.</td>
+                <td>Best treated as a separate signed-in browser integration unless the organization has confirmed admin-level browser restrictions.</td>
+              </tr>
+              <tr>
+                <td><strong>Google Antigravity</strong></td>
+                <td>Google's Antigravity material describes browser agents/subagents for app inspection and task execution.</td>
+                <td>Public docs discuss agent workflows, browser use, and execution behavior. I did not find a public Codex-style domain allow/block control panel in the docs reviewed.</td>
+                <td>Promising browser-agent workflow, but corporate adoption should require destination policy, screenshot policy, and session cleanup controls.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note">
+          Source basis: public docs and pages linked in the references below. If a vendor exposes additional controls only inside a paid admin console, validate that separately before deployment.
+        </p>
       </section>
 
       <section id="policy" class="section policy">
@@ -219,43 +318,53 @@
       <section id="use-cases" class="section use-cases">
         <div class="section-head">
           <p class="eyebrow">Use cases</p>
-          <h2>Where Browser Use is useful</h2>
+          <h2>Use Case Theater</h2>
+          <p>Click a scenario to see the browser-agent path: prompt, browser action, evidence, and control gate.</p>
         </div>
-        <div class="use-case-grid">
-          <span>Developing website components</span>
-          <span>Automating manual website workflows</span>
-          <span>Instruction-driven website testing</span>
-          <span>Jira or AIO-driven action context</span>
-          <span>Acceptance criteria execution</span>
-          <span>Scraping visible information without APIs</span>
-          <span>Reproducing visual UI bugs</span>
-          <span>Verifying that a fix works</span>
-          <span>Testing local development routes</span>
-          <span>Inspecting file-backed previews</span>
-          <span>Checking form flows and interactions</span>
-          <span>Debugging state-specific UI</span>
-          <span>Using visual comments for precise fixes</span>
-          <span>Reviewing UI changes beside code diffs</span>
-          <span>Smoke-testing unauthenticated public pages</span>
-          <span>Controlled browsing with allow/block rules</span>
-          <span>Component state matrix testing</span>
-          <span>Design-system drift detection</span>
-          <span>Storybook or component playground review</span>
-          <span>Before-and-after UI verification</span>
-          <span>Visual regression triage</span>
-          <span>Responsive breakpoint testing</span>
-          <span>Dark mode and theme QA</span>
-          <span>Localization and RTL testing</span>
-          <span>Onboarding flow rehearsal</span>
-          <span>User bug-report reenactment</span>
-          <span>QA evidence pack generation</span>
-          <span>Manual-test-to-automation bridge</span>
-          <span>Release smoke-test assistant</span>
-          <span>Feature-flag comparison</span>
-          <span>CMS preview validation</span>
-          <span>Admin workflow rehearsal in staging</span>
-          <span>Analytics sanity checking</span>
-          <span>Safety and guardrail UX review</span>
+        <div class="use-case-theater">
+          <div class="scenario-picker" role="tablist" aria-label="Featured use cases">
+            <button class="scenario-button active" type="button" data-case="visual" role="tab" aria-selected="true">Visual bug replay</button>
+            <button class="scenario-button" type="button" data-case="release" role="tab" aria-selected="false">Release smoke test</button>
+            <button class="scenario-button" type="button" data-case="forms" role="tab" aria-selected="false">Form workflow QA</button>
+            <button class="scenario-button" type="button" data-case="policy" role="tab" aria-selected="false">Controlled browsing</button>
+            <button class="scenario-button" type="button" data-case="design" role="tab" aria-selected="false">Design-system drift</button>
+            <button class="scenario-button" type="button" data-case="automation" role="tab" aria-selected="false">Manual to automation</button>
+          </div>
+          <div class="theater-stage" aria-live="polite">
+            <div class="browser-sim">
+              <div class="browser-bar">
+                <span></span><span></span><span></span>
+                <div class="url-pill" id="case-url">localhost:3000/checkout</div>
+              </div>
+              <div class="browser-body">
+                <div class="scan-line"></div>
+                <div class="mock-panel wide"></div>
+                <div class="mock-row"></div>
+                <div class="mock-row short"></div>
+                <div class="mock-grid">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="cursor-dot" aria-hidden="true"></div>
+              </div>
+            </div>
+            <div class="case-copy">
+              <p class="eyebrow">Featured scenario</p>
+              <h3 id="case-title">Reproducing visual UI bugs</h3>
+              <p id="case-description">Codex opens the affected page, reproduces layout, spacing, overflow, alignment, or rendering issues, and returns concrete visual evidence.</p>
+              <div class="case-flow">
+                <span id="case-step-1">Open the reported route</span>
+                <span id="case-step-2">Replay the user sequence</span>
+                <span id="case-step-3">Capture evidence</span>
+                <span id="case-step-4">Gate with approval and domain policy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="use-case-grid compact">
+          <span>Developing website components</span><span>Automating manual website workflows</span><span>Instruction-driven website testing</span><span>Jira or AIO-driven action context</span>
+          <span>Acceptance criteria execution</span><span>Scraping visible information without APIs</span><span>Testing local development routes</span><span>Inspecting file-backed previews</span>
+          <span>Checking interactions</span><span>Debugging state-specific UI</span><span>Reviewing UI changes beside code diffs</span><span>Responsive breakpoint testing</span>
+          <span>Dark mode and theme QA</span><span>Localization and RTL testing</span><span>QA evidence pack generation</span><span>Safety and guardrail UX review</span>
         </div>
       </section>
 
@@ -265,11 +374,11 @@
           <h2>Source references listed in the PDF</h2>
         </div>
         <ul>
-          <li>OpenAI Developers, In-app browser - Codex app</li>
-          <li>OpenAI Developers, Codex Chrome extension - Codex app</li>
-          <li>OpenAI Developers, Agent approvals and security - Codex</li>
-          <li>OpenAI Developers, Agent internet access - Codex web</li>
-          <li>OpenAI Developers, Managed configuration - Codex</li>
+          <li><a href="assets/docs/mvne-codex-in-app-browser-controls.pdf">Source PDF: MVNE Codex In-App Browser Controls</a></li>
+          <li><a href="https://docs.cursor.com/account/agent-security">Cursor docs: Agent security and enterprise controls</a></li>
+          <li><a href="https://docs.anthropic.com/">Anthropic docs: Claude permissions, browser/computer use, and managed settings</a></li>
+          <li><a href="https://codelabs.developers.google.com/getting-started-google-antigravity">Google Developers codelab: Getting started with Google Antigravity</a></li>
+          <li><a href="https://antigravity.google/">Google Antigravity product documentation</a></li>
         </ul>
       </section>
     </main>
@@ -278,5 +387,6 @@
       <p>Controlled environment focus: in-app browser controls only.</p>
       <a href="assets/docs/mvne-codex-in-app-browser-controls.pdf">Open the source PDF</a>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
