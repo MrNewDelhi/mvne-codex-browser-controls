@@ -583,9 +583,12 @@ tbody tr:last-child td {
 }
 
 .gif-frame img {
+  display: block;
   width: 100%;
   aspect-ratio: 760 / 480;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  background: #05111f;
 }
 
 .case-copy {
@@ -652,6 +655,19 @@ tbody tr:last-child td {
   text-decoration: none;
 }
 
+.asset-missing {
+  outline: 2px solid #ff7a7a;
+}
+
+.asset-missing::after {
+  content: "GIF asset did not load";
+  display: block;
+  padding: 10px 12px;
+  color: #ffd5d5;
+  background: rgba(120, 30, 30, 0.45);
+  font-weight: 800;
+}
+
 .use-case-reference {
   margin: 22px 0;
   overflow: hidden;
@@ -692,16 +708,22 @@ tbody tr:last-child td {
 }
 
 .mini-use-case img {
+  display: block;
   width: 100%;
   aspect-ratio: 420 / 260;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  background:
+    linear-gradient(145deg, rgba(4, 12, 23, 0.9), rgba(8, 31, 52, 0.95));
   border-bottom: 1px solid var(--line);
 }
 
 .mini-use-case span {
-  display: block;
-  min-height: 72px;
+  display: flex;
+  align-items: center;
+  min-height: 84px;
   padding: 14px 16px;
+  overflow-wrap: anywhere;
 }
 
 .references {
@@ -762,6 +784,10 @@ tbody tr:last-child td {
   .use-case-theater,
   .theater-stage {
     grid-template-columns: 1fr;
+  }
+
+  .theater-stage {
+    min-height: 0;
   }
 
   .control-stack article {

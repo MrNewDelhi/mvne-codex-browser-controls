@@ -75,6 +75,13 @@ const stepEls = [
   document.querySelector("#case-step-3"),
   document.querySelector("#case-step-4")
 ];
+const useCaseImages = document.querySelectorAll("#use-cases img");
+
+useCaseImages.forEach((image) => {
+  image.addEventListener("error", () => {
+    image.closest("a, figure")?.classList.add("asset-missing");
+  });
+});
 
 function setCase(key) {
   const next = cases[key];
