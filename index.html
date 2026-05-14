@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codex In-App Browser Controls</title>
+    <meta name="description" content="MVNE guide for Codex in-app browser controls, approval settings, domain rules, browsing data, screenshots, Chrome boundaries, and team workflows.">
+    <meta property="og:title" content="Codex In-App Browser Controls">
+    <meta property="og:description" content="A complete static guide for safe Codex browser governance in controlled environments.">
+    <meta property="og:image" content="assets/images/chrome-controls.png">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 19 6v5.2c0 4.1-2.6 7.8-7 9.8-4.4-2-7-5.7-7-9.8V6l7-3Z"></path><path d="m8.5 12.2 2.2 2.2 4.9-5.1"></path></svg>
+          </span>
+          <span>Codex Browser Controls</span>
+        </a>
+        <div class="nav-links">
+          <a href="#defaults">Defaults</a>
+          <a href="#controls">Controls</a>
+          <a href="#policy">Policy</a>
+          <a href="#use-cases">Use Cases</a>
+          <a href="assets/docs/mvne-codex-in-app-browser-controls.pdf">PDF</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">MVNE controlled-environment guide</p>
+          <h1>Codex in-app browser controls, made operational.</h1>
+          <p class="lead">
+            A full static writeup for governing Codex browser use: approvals,
+            allow/block domain lists, browsing data, annotation screenshots,
+            Chrome extension boundaries, team workflows, troubleshooting, and QA use cases.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#defaults">Start with defaults</a>
+            <a class="button secondary" href="assets/docs/mvne-codex-in-app-browser-controls.pdf">Open source PDF</a>
+          </div>
+          <div class="scope-callout">
+            <strong>Scope reminder</strong>
+            <span>These controls apply to Codex's built-in in-app browser inside a thread. They do not govern web search, cloud-agent internet, command-line network access, MCP tools, connectors, or filesystem sandboxing.</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="assets/images/chrome-controls.png" alt="Google Chrome controls for Codex overview">
+        </div>
+      </section>
+
+      <section class="section intro">
+        <div>
+          <p class="eyebrow">Purpose</p>
+          <h2>What the in-app browser is for</h2>
+        </div>
+        <div class="prose">
+          <p>
+            The in-app browser is a shared view of rendered web pages inside a Codex thread.
+            With Browser Use enabled, Codex can click, type, inspect rendered state, capture
+            screenshots, and verify fixes inside the page.
+          </p>
+          <p>
+            It is best suited to local development servers, file-backed previews, static
+            prototypes, and public pages that do not require sign-in. For signed-in browser
+            work such as LinkedIn or Salesforce, use the separate Chrome extension workflow.
+          </p>
+        </div>
+      </section>
+
+      <section id="defaults" class="section">
+        <div class="section-head">
+          <p class="eyebrow">Quick start</p>
+          <h2>Recommended defaults</h2>
+          <p>Use these settings as the baseline before opening browser access for a team or project.</p>
+        </div>
+        <div class="default-grid">
+          <article><span>01</span><h3>Browser Use</h3><p>Enable only when you need UI verification, rendered-page inspection, click-through testing, or visual debugging.</p></article>
+          <article><span>02</span><h3>Approval</h3><p>Keep <strong>Always ask</strong> so a human confirms new destinations before Codex opens them.</p></article>
+          <article><span>03</span><h3>Allowed domains</h3><p>Add only reviewed local or staging targets such as localhost, 127.0.0.1, or specific preview hosts.</p></article>
+          <article><span>04</span><h3>Blocked domains</h3><p>Block production, identity, finance, HR, admin, customer-data, and other sensitive systems.</p></article>
+          <article><span>05</span><h3>Annotation screenshots</h3><p>Prefer <strong>Only on drag selection</strong> on sensitive pages so visual context is deliberately selected.</p></article>
+          <article><span>06</span><h3>Browsing data</h3><p>Clear after sensitive sessions, before demos, and when switching projects or customers.</p></article>
+        </div>
+      </section>
+
+      <section id="controls" class="section controls">
+        <div class="section-head">
+          <p class="eyebrow">Feature overview</p>
+          <h2>Controls and governance notes</h2>
+        </div>
+        <div class="control-stack">
+          <article><h3>Browser Use on/off</h3><p>Controls whether Codex can operate the in-app browser. Enable for layout checks, click-through flows, visual validation, reproduction, and UI debugging. Disable for non-UI tasks or sensitive projects where rendered-page inspection is unnecessary.</p></article>
+          <article><h3>Browsing data</h3><p>Manages cookies, site data, cached images, and cached files. Clear all browsing data after sensitive sessions or before demos. Delete specific cookies or cached data when troubleshooting state-dependent UI issues.</p></article>
+          <article><h3>Annotation screenshots</h3><p>Controls whether screenshots are attached to prompts with comments or annotations. Use Only on drag selection for sensitive work. Use Always include only on low-risk public pages where visual context is critical.</p></article>
+          <article><h3>Approval</h3><p>Controls when Codex asks before opening websites. Always ask is recommended. Always allow has elevated risk because it can permit silent navigation to unreviewed pages.</p></article>
+          <article><h3>Blocked domains</h3><p>Destinations Codex must never open through the in-app browser. Block production admin tools, identity providers, personal mail, payment dashboards, HR portals, security consoles, and customer-data systems. Removing a block lets Codex ask again later.</p></article>
+          <article><h3>Allowed domains</h3><p>Destinations Codex may open without asking. Keep the list short and explicit: localhost, 127.0.0.1, specific preview hosts, approved staging domains, or approved docs. Avoid broad public domains and sites that could reveal account data.</p></article>
+          <article><h3>Google Chrome link</h3><p>The settings page may link to Google Chrome in computer-use settings. This is separate from the in-app browser and is intended for signed-in browsing tasks when policy allows it.</p></article>
+        </div>
+      </section>
+
+      <section class="section workflow">
+        <div>
+          <p class="eyebrow">Team workflow</p>
+          <h2>How teams should run browser work</h2>
+        </div>
+        <ol>
+          <li>Start with the in-app browser for local servers, previews, and public pages that do not need sign-in.</li>
+          <li>Be explicit in prompts, for example: use @browser to open http://localhost:3000/settings and verify the mobile layout.</li>
+          <li>Keep Approval set to Always ask unless the destination is reviewed and added to Allowed domains.</li>
+          <li>Use Allowed domains for repeat low-risk targets and Blocked domains for high-risk or out-of-scope sites.</li>
+          <li>Avoid pasting secrets into browser flows. Do not load pages that reveal sensitive data unless reviewed and necessary.</li>
+          <li>Clear browsing data after sensitive work, before demos, or when switching projects or customers.</li>
+        </ol>
+      </section>
+
+      <section class="section boundary">
+        <div class="section-head">
+          <p class="eyebrow">Boundary</p>
+          <h2>What these settings do not control</h2>
+        </div>
+        <div class="boundary-grid">
+          <article><h3>Web Search</h3><p>Managed separately through cached, disabled, or live modes.</p></article>
+          <article><h3>Cloud agent internet access</h3><p>Environment-level control with allowlists and allowed HTTP methods.</p></article>
+          <article><h3>Command-line network access</h3><p>Shell network access is outside in-app browser settings.</p></article>
+          <article><h3>Chrome extension</h3><p>Use for signed-in workflows under separate Chrome controls.</p></article>
+          <article><h3>MCP tools and connectors</h3><p>Governed by their own permissions and integration policies.</p></article>
+          <article><h3>Filesystem sandboxing</h3><p>Workspace file access is a separate local runtime control.</p></article>
+        </div>
+      </section>
+
+      <section id="policy" class="section policy">
+        <div>
+          <p class="eyebrow">Controlled-environment policy template</p>
+          <h2>Copy-ready policy language</h2>
+        </div>
+        <blockquote>
+          Codex browser access is limited to the in-app browser unless a task explicitly requires
+          another browser integration. Browser Use may be enabled for local development servers,
+          file-backed previews, approved staging domains, and public unauthenticated pages.
+          Approval must remain set to Always ask unless a destination has been reviewed and
+          added to Allowed domains. Production systems, authentication pages, payment tools,
+          personal accounts, HR systems, customer-data systems, and sensitive admin systems
+          should be blocked where appropriate. Annotation screenshots must not be used on
+          pages containing secrets, credentials, customer data, private records, or confidential
+          business information unless the exact selection is intentional and approved. Browsing
+          data should be cleared after sensitive sessions or project changes.
+        </blockquote>
+      </section>
+
+      <section class="section scenarios">
+        <div class="section-head">
+          <p class="eyebrow">Scenarios</p>
+          <h2>Two operating profiles</h2>
+        </div>
+        <div class="scenario-grid">
+          <article>
+            <h3>Low-risk UI verification</h3>
+            <ul>
+              <li>Enable Browser Use.</li>
+              <li>Approval: Always ask.</li>
+              <li>Allowed: localhost and approved preview hosts.</li>
+              <li>Screenshots: Always include.</li>
+              <li>Clear data: optional at end of sprint.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Sensitive internal testing</h3>
+            <ul>
+              <li>Enable Browser Use temporarily.</li>
+              <li>Approval: Always ask.</li>
+              <li>Blocked: production admin, IdP, HR, and payroll.</li>
+              <li>Screenshots: Only on drag selection.</li>
+              <li>Clear data after each session.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section support">
+        <div>
+          <p class="eyebrow">Troubleshooting and FAQ</p>
+          <h2>Common questions</h2>
+        </div>
+        <div class="qa-grid">
+          <article><h3>Codex will not open a page</h3><p>Check whether the domain is blocked. Remove the block only if approved. With Always ask, confirm the prompt to proceed.</p></article>
+          <article><h3>State seems stuck</h3><p>Clear cookies, site data, and cache, then retry the flow.</p></article>
+          <article><h3>Unexpected screenshots</h3><p>Switch to Only on drag selection and redact sensitive captures in thread history if policy requires it.</p></article>
+          <article><h3>Needs signed-in state</h3><p>Use the Chrome extension workflow when appropriate, or sign in directly to the in-app browser when allowed.</p></article>
+          <article><h3>Does Allowed domains bypass review?</h3><p>Yes. Codex can open listed domains without asking first. Keep the list minimal and reviewed.</p></article>
+          <article><h3>Will clearing data sign the browser out?</h3><p>Yes. Clearing cookies or site data removes stored session state.</p></article>
+        </div>
+      </section>
+
+      <section class="section evidence">
+        <div class="section-head">
+          <p class="eyebrow">Reference panels</p>
+          <h2>Visual evidence from the source material</h2>
+        </div>
+        <div class="gallery">
+          <article><a href="assets/images/approval-options.png"><img src="assets/images/approval-options.png" alt="Approval options"></a><h3>Approval Options</h3></article>
+          <article><a href="assets/images/domain-lists.png"><img src="assets/images/domain-lists.png" alt="Domain lists"></a><h3>Domain Lists</h3></article>
+          <article><a href="assets/images/add-allowed-domain.png"><img src="assets/images/add-allowed-domain.png" alt="Add allowed domain"></a><h3>Add Allowed Domain</h3></article>
+          <article><a href="assets/images/remove-allowed-domain.png"><img src="assets/images/remove-allowed-domain.png" alt="Remove allowed domain"></a><h3>Remove Allowed Domain</h3></article>
+          <article><a href="assets/images/add-blocked-domain.png"><img src="assets/images/add-blocked-domain.png" alt="Add blocked domain"></a><h3>Add Blocked Domain</h3></article>
+          <article><a href="assets/images/remove-blocked-domain.png"><img src="assets/images/remove-blocked-domain.png" alt="Remove blocked domain"></a><h3>Remove Blocked Domain</h3></article>
+          <article><a href="assets/images/browsing-data.png"><img src="assets/images/browsing-data.png" alt="Browsing data"></a><h3>Browsing Data</h3></article>
+          <article><a href="assets/images/annotation-screenshots.png"><img src="assets/images/annotation-screenshots.png" alt="Annotation screenshots"></a><h3>Annotation Screenshots</h3></article>
+          <article><a href="assets/images/chrome-controls.png"><img src="assets/images/chrome-controls.png" alt="Chrome controls"></a><h3>Google Chrome Controls</h3></article>
+        </div>
+      </section>
+
+      <section id="use-cases" class="section use-cases">
+        <div class="section-head">
+          <p class="eyebrow">Use cases</p>
+          <h2>Where Browser Use is useful</h2>
+        </div>
+        <div class="use-case-grid">
+          <span>Developing website components</span>
+          <span>Automating manual website workflows</span>
+          <span>Instruction-driven website testing</span>
+          <span>Jira or AIO-driven action context</span>
+          <span>Acceptance criteria execution</span>
+          <span>Scraping visible information without APIs</span>
+          <span>Reproducing visual UI bugs</span>
+          <span>Verifying that a fix works</span>
+          <span>Testing local development routes</span>
+          <span>Inspecting file-backed previews</span>
+          <span>Checking form flows and interactions</span>
+          <span>Debugging state-specific UI</span>
+          <span>Using visual comments for precise fixes</span>
+          <span>Reviewing UI changes beside code diffs</span>
+          <span>Smoke-testing unauthenticated public pages</span>
+          <span>Controlled browsing with allow/block rules</span>
+          <span>Component state matrix testing</span>
+          <span>Design-system drift detection</span>
+          <span>Storybook or component playground review</span>
+          <span>Before-and-after UI verification</span>
+          <span>Visual regression triage</span>
+          <span>Responsive breakpoint testing</span>
+          <span>Dark mode and theme QA</span>
+          <span>Localization and RTL testing</span>
+          <span>Onboarding flow rehearsal</span>
+          <span>User bug-report reenactment</span>
+          <span>QA evidence pack generation</span>
+          <span>Manual-test-to-automation bridge</span>
+          <span>Release smoke-test assistant</span>
+          <span>Feature-flag comparison</span>
+          <span>CMS preview validation</span>
+          <span>Admin workflow rehearsal in staging</span>
+          <span>Analytics sanity checking</span>
+          <span>Safety and guardrail UX review</span>
+        </div>
+      </section>
+
+      <section class="section references">
+        <div>
+          <p class="eyebrow">References</p>
+          <h2>Source references listed in the PDF</h2>
+        </div>
+        <ul>
+          <li>OpenAI Developers, In-app browser - Codex app</li>
+          <li>OpenAI Developers, Codex Chrome extension - Codex app</li>
+          <li>OpenAI Developers, Agent approvals and security - Codex</li>
+          <li>OpenAI Developers, Agent internet access - Codex web</li>
+          <li>OpenAI Developers, Managed configuration - Codex</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Controlled environment focus: in-app browser controls only.</p>
+      <a href="assets/docs/mvne-codex-in-app-browser-controls.pdf">Open the source PDF</a>
+    </footer>
+  </body>
+</html>
